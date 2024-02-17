@@ -3,9 +3,23 @@
     <transition name="slide">
       <img
         :src="currentImage"
-        class="h-64 w-full h-full duration-500"
+        class="w-full h-full"
       />
     </transition>
+     <Icon 
+      size="35px"  
+      color="white"
+      @click="scroll('left')"    
+      name="uil:arrow-circle-left" 
+     :class="[showPrev ? 'block' : 'hidden']"   class="absolute top-[50%] left-4 translate-y-[-50%] group-hover:opacity-100 opacity-0" />
+
+    <Icon 
+     size="35px"  
+     color="white"
+     @click="scroll('right')"
+     name="uil:arrow-circle-right" 
+     :class="[showNext ? 'block' : 'hidden']" 
+     class="absolute top-[50%] right-4 translate-y-[-50%] group-hover:opacity-100 opacity-0"/>
   </div>
 </template>
 
@@ -25,25 +39,11 @@ const showPrev = computed(() => currentIndex.value > 0);
 const showNext = computed(() => currentIndex.value < images.length - 1);
 
 const scroll = (direction) => {
-  currentIndex.value += direction;
+  if (currentIndex.value > 0 || currentIndex < images.length - 1) return 
+  currentIndex.value += 1;
 };
-
-onMounted(() => {
-  const image = document.querySelector('.image');
-  image.addEventListener('mouseenter', () => {
-    currentIndex.value = images.indexOf(currentImage.value);
-  });
-});
 </script>
 
 <style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
-}
 
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
 </style>
