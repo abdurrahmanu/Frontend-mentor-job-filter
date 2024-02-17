@@ -1,4 +1,5 @@
 <template>
+npm install swiper
 <div class="w-full h-full">
   <swiper-container
     :slides-per-view="1"
