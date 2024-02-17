@@ -1,46 +1,37 @@
 <template>
-  <div class="relative w-full">
-    <transition name="slide">
-      <img
-        :src="currentImage"
-        class="w-full h-full"
-      />
-    </transition>
+  <div class="relative w-full group">
      <Icon 
       size="35px"  
       color="white"
       @click="scroll('left')"    
       name="uil:arrow-circle-left" 
-     :class="[showPrev ? 'block' : 'hidden']"   class="absolute top-[50%] left-4 translate-y-[-50%] group-hover:opacity-100 opacity-0" />
+     :class="[prev ? 'group-hover:block hidden' : 'hidden']"   class="absolute top-[50%] left-4 translate-y-[-50%]" />
+
+   <img
+        :src="../assets/${currentIndex}.jpeg"
+        class="w-full h-full" />
 
     <Icon 
      size="35px"  
      color="white"
      @click="scroll('right')"
      name="uil:arrow-circle-right" 
-     :class="[showNext ? 'block' : 'hidden']" 
-     class="absolute top-[50%] right-4 translate-y-[-50%] group-hover:opacity-100 opacity-0"/>
+     :class="[next ? 'group-hover:block hidden' : 'hidden']" 
+     class="absolute top-[50%] right-4 translate-y-[-50%]" />
   </div>
 </template>
 
 <script setup>
 const currentIndex = ref(0);
-const images = [
-  'https://via.placeholder.com/150',
-  'https://via.placeholder.com/150',
-  'https://via.placeholder.com/150',
-  'https://via.placeholder.com/150',
-  'https://via.placeholder.com/150',
-];
 
 const currentImage = computed(() => images[currentIndex.value]);
 
-const showPrev = computed(() => currentIndex.value > 0);
-const showNext = computed(() => currentIndex.value < images.length - 1);
+const prev = computed(() => currentIndex.value > 0);
+const next = computed(() => currentIndex.value < 20);
 
 const scroll = (direction) => {
-  if (currentIndex.value > 0 || currentIndex < images.length - 1) return 
-  currentIndex.value += 1;
+  if (currentIndex.value === 0 || currentIndex.value > 20) return 
+  direction === 'left' ? currentIndex.value -= 1 : currentIndex.value += 1
 };
 </script>
 
