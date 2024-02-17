@@ -1,0 +1,49 @@
+<template>
+  <div class="relative w-full">
+    <transition name="slide">
+      <img
+        :src="currentImage"
+        class="h-64 w-full h-full duration-500"
+      />
+    </transition>
+  </div>
+</template>
+
+<script setup>
+const currentIndex = ref(0);
+const images = [
+  'https://via.placeholder.com/150',
+  'https://via.placeholder.com/150',
+  'https://via.placeholder.com/150',
+  'https://via.placeholder.com/150',
+  'https://via.placeholder.com/150',
+];
+
+const currentImage = computed(() => images[currentIndex.value]);
+
+const showPrev = computed(() => currentIndex.value > 0);
+const showNext = computed(() => currentIndex.value < images.length - 1);
+
+const scroll = (direction) => {
+  currentIndex.value += direction;
+};
+
+onMounted(() => {
+  const image = document.querySelector('.image');
+  image.addEventListener('mouseenter', () => {
+    currentIndex.value = images.indexOf(currentImage.value);
+  });
+});
+</script>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
