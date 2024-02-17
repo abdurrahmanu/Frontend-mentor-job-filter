@@ -23,15 +23,15 @@
 
 <script setup>
 const currentIndex = ref(0);
-
-const currentImage = computed(() => images[currentIndex.value]);
-
 const prev = computed(() => currentIndex.value > 0);
 const next = computed(() => currentIndex.value < 20);
 
 const scroll = (direction) => {
-  if (currentIndex.value === 0 || currentIndex.value > 20) return 
-  direction === 'left' ? currentIndex.value -= 1 : currentIndex.value += 1
+  if (currentIndex.value === 0 || currentIndex.value > 20) return  
+
+direction === 'left' ? 
+   currentIndex.value -= 1 : 
+     currentIndex.value += 1
 };
 </script>
 
